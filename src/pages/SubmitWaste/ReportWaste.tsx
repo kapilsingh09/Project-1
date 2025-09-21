@@ -17,7 +17,7 @@ const ReportWaste = () => {
   const [wasteType, setWasteType] = useState('');
   const [description, setDescription] = useState('');
 //error state popup
-  const [showError, setShowError] = useState(true);
+  const [showError, setShowError] = useState(false);
   const [errorList, setErrorList] = useState<string[]>([]);
   //report state model pop
   const [showSuccessModal, setShowSuccessModal] = useState(false);
