@@ -17,7 +17,7 @@ const ReportWaste = () => {
   const [wasteType, setWasteType] = useState('');
   const [description, setDescription] = useState('');
 //error state popup
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(true);
   const [errorList, setErrorList] = useState<string[]>([]);
   //report state model pop
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -26,7 +26,7 @@ const ReportWaste = () => {
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [submittedData, setSubmittedData] = useState<{
     name: string;
     email: string;
@@ -411,10 +411,10 @@ const ReportWaste = () => {
                             >
                               <X className="w-4 h-4" />
                             </button>
-                            <div className="mt-3 p-3 bg-gray-50 rounded-lg flex items-center justify-between">
+                            <div className="mt-3 p-3  rounded-lg border-2 border-white/30 flex items-center justify-between">
                               <div className="flex items-center">
                                 <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                                <span className="text-sm text-gray-700">{photoFile?.name}</span>
+                                <span className="text-sm text-white">{photoFile?.name}</span>
                               </div>
                               <Button
                                 type="button"
@@ -434,27 +434,27 @@ const ReportWaste = () => {
                 )}
 
                 {/* Navigation Buttons */}
-                <div className="flex justify-between items-center mt-12 pt-8 border-t border-gray-100">
+                <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-7 pt-4 border-t border-gray-100 gap-2 sm:gap-0">
                   {currentStep > 1 ? (
                     <Button 
                       type="button" 
                       onClick={prevStep}
                       variant="outline"
-                      className="px-6 py-3 text-base"
+                      className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
                     >
                       Previous
                     </Button>
                   ) : (
-                    <div></div>
+                    <div className="hidden sm:block"></div>
                   )}
 
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:space-x-4 w-full sm:w-auto">
                     {currentStep === totalSteps && (
                       <Button
                         type="button"
                         onClick={togglePreview}
                         variant="outline"
-                        className="px-6 py-3 text-base"
+                        className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base mb-2 sm:mb-0"
                       >
                         <Eye className="w-4 h-4 mr-2" />
                         {showPreview ? 'Hide Preview' : 'Preview Report'}
@@ -465,7 +465,7 @@ const ReportWaste = () => {
                       <Button 
                         type="button" 
                         onClick={nextStep}
-                        className="px-6 py-3 text-base bg-green-600 hover:bg-green-700"
+                        className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700"
                       >
                         Next
                       </Button>
@@ -474,7 +474,7 @@ const ReportWaste = () => {
                     {currentStep === totalSteps && (
                       <Button 
                         type="submit"
-                        className="px-8 py-3 text-base bg-green-600 hover:bg-green-700"
+                        className="w-full sm:w-auto px-4 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700"
                       >
                         Submit Report
                       </Button>
@@ -486,7 +486,7 @@ const ReportWaste = () => {
           </div>
 
           {/* Preview Panel */}
-          <div className="lg:col-span-1">
+          {currentStep > 2 && showPreview && <div className="lg:col-span-1 sm:hidden ">
             <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700 transition-all duration-300 ${
               showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
             }`}>
@@ -551,7 +551,7 @@ const ReportWaste = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
         </div>
       </div>
 
