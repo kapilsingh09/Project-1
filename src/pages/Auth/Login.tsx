@@ -25,7 +25,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen h-full mb-10 flex flex-col p-4 items-center bg-transparent ">
+    <div className="min-h-full h-full mb-10 flex sm:p-10 flex-col p-5 items-center bg-transparent ">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 border border-white/10 rounded-full"></div>
@@ -34,9 +34,9 @@ export default function LoginPage() {
       </div>
 
       {/* Main login container */}
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full  max-w-md">
         {/* Header */}
-        <div className="text-center mb-3 flex justify-between">
+        <div className="text-center mb-4 flex justify-between">
        
           <div className="text-left pl-1 ">
           <h1 className="text-4xl font-bold text-white mb-2">Welcome Back</h1>
@@ -148,7 +148,7 @@ export default function LoginPage() {
           {/* Google login button */}
           <Button
             variant="outline"
-            className="w-full h-12 bg-white/10 border-white/20 text-white hover:bg-white/15 hover:border-white/30 font-medium rounded-xl transition-all duration-200 transform hover:scale-[1.02]"
+            className="w-full   h-12 bg-white/10 border-white/20 text-white hover:bg-white/15 hover:border-white/30 font-medium rounded-xl transition-all duration-200 transform hover:scale-[1.02]"
             onClick={handleGoogleLogin}
           >
             <Chrome className="w-5 h-5 mr-2" />
@@ -159,7 +159,7 @@ export default function LoginPage() {
           <div className="text-center mt-6">
             <p className="text-white/70 text-sm">
               Don't have an account?{" "}
-              <NavLink to="/register" className="text-white hover:underline hover:text-white/80 font-medium transition-colors">
+              <NavLink to="/register" className="text-white hover:underline underline-offset-2 decoration-1.5 hover:text-white/80 font-medium transition-colors">
                 Sign up
               </NavLink>
             </p>

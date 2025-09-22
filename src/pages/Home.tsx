@@ -161,7 +161,7 @@ const Home = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }} 
-            className="text-center mb-16"
+            className="text-center mb-16  "
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6  text-white/90 ">
               Smart Waste Management Features
@@ -243,7 +243,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-primary">
+      <section className="py-20 bg-green-500/80">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -255,7 +255,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold   mb-6">
               Ready to Make a Difference?
             </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8">
+            <p className="text-xl text-white font-serif font-medium mb-8">
               Join thousands of users who are already helping create cleaner, greener communities
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -263,7 +263,7 @@ const Home = () => {
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  className="text-lg px-8 rounded-2xl  py-6 hover:shadow-lg transition-all duration-300"
+                  className="text-lg px-8 rounded-xl  py-6 hover:shadow-lg transition-all duration-300"
                 >
                   Start Reporting
                 </Button>
@@ -272,7 +272,7 @@ const Home = () => {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="bg-transparent rounded-2xl text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6"
+                  className="bg-transparent rounded-xl text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6 text-zinc-900"
                 >
                   Learn More
                 </Button>

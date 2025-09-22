@@ -9,9 +9,7 @@ import Misson from '../AboutPage/Misson';
 import Values from '../AboutPage/Values';
 
 const About = () => {
-
-
-
+  // Responsive milestones (not used in this file, but left for future use)
   const milestones = [
     { year: '2020', title: 'Company Founded', description: 'Started with a vision to revolutionize waste management' },
     { year: '2021', title: 'First 1,000 Users', description: 'Reached our first milestone in community engagement' },
@@ -21,74 +19,53 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-subtle py-8 sm:py-12">
+      <div className="container mx-auto px-2 sm:px-4">
         {/* Hero Section */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <motion.div
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-full mb-6 shadow-green"
+            className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-primary rounded-full mb-4 sm:mb-6 shadow-green"
           >
-            <Leaf className="h-10 w-10 text-primary-foreground" />
+            <Leaf className="h-8 w-8 sm:h-10 sm:w-10 text-primary-foreground" />
           </motion.div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-primary bg-clip-text text-transparent">
             About Clean & Green
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl sm:max-w-4xl mx-auto leading-relaxed px-2">
             We're on a mission to create cleaner, more sustainable communities through innovative 
             waste management technology and community engagement.
           </p>
         </motion.div>
 
-        {/* Stats Section
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              className="text-center"
-            >
-              <Card className="border-0 shadow-card hover:shadow-green transition-all duration-300 p-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-full mb-4 shadow-green">
-                  <stat.icon className="h-8 w-8 text-primary-foreground" />
-                </div>
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </div>
-                <p className="text-muted-foreground font-medium">{stat.label}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div> */}
-
         {/* Mission Section */}
+        <div className="mb-10 sm:mb-16">
+          <Misson />
+        </div>
 
-        <Misson />
-
-<Team />
-        {/* Values Section */}
-
-<Values />
         {/* Team Section */}
+        <div className="mb-10 sm:mb-16">
+          <Team />
+        </div>
 
+        {/* Values Section */}
+        <div className="mb-10 sm:mb-16">
+          <Values />
+        </div>
 
         {/* Timeline Section */}
-<Timeline />
+        <div className="mb-10 sm:mb-16">
+          <Timeline />
+        </div>
+
         {/* CTA Section */}
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -96,28 +73,28 @@ const About = () => {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="text-center"
         >
-          <Card className="bg-gradient-primary text-primary-foreground border-0 shadow-green">
+          <Card className="bg-gradient-primary text-primary-foreground border-0 shadow-green mx-auto w-full sm:px-30">
             <CardHeader>
-              <CardTitle className="text-3xl md:text-4xl font-bold mb-4">
+              <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
                 Join Our Mission
               </CardTitle>
-              <CardDescription className="text-xl text-primary-foreground/90 max-w-2xl mx-auto">
+              <CardDescription className="text-base sm:text-xl text-zinc-900 font-serif  max-w-xl mx-auto">
                 Ready to make a difference in your community? Start reporting waste and help us create a cleaner, greener future together.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full">
                 <Button 
                   variant="secondary" 
                   size="lg"
-                  className="text-lg px-8 py-6 hover:shadow-lg transition-all duration-300"
+                  className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                 >
                   Start Reporting Waste
                 </Button>
                 <Button 
                   variant="outline"
                   size="lg"
-                  className="bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6"
+                  className="bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                 >
                   Get In Touch
                 </Button>
@@ -125,7 +102,6 @@ const About = () => {
             </CardContent>
           </Card>
         </motion.div>
-        
       </div>
     </div>
   );

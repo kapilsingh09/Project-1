@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, Chrome, Eye, EyeOff, User, Phone } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -58,7 +59,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col mb-10 items-center justify-center bg-transparent ">
+    <div className="min-h-screen flex flex-col mb-10 p-5 items-center justify-center bg-transparent ">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-10 w-32 h-32 border border-white/10 rounded-full"></div>
@@ -70,11 +71,11 @@ const handleSubmit = async (e: React.FormEvent) => {
       {/*   container */}
       <div className="relative z-10 w-full max-w-lg">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/5 border border-white/20 rounded-full mb-4 backdrop-blur-sm">
             <User className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">Create Account</h1>
+          <h1 className="text-4xl font-bold text-white mb-1">Create <span className="">Account</span> </h1>
           <p className="text-white/70">Join us and get started today</p>
         </div>
 
@@ -211,12 +212,12 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
 
             {/* Terms and conditions */}
-            <div className="flex items-start space-x-2">
+            <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 id="terms"
                 required
-                className="mt-1 h-4 w-4 rounded border-white/20 bg-white/10 text-white focus:ring-white/50"
+                className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/10 text-white focus:ring-white/50"
               />
               <label htmlFor="terms" className="text-sm text-white/70 leading-5">
                 I agree to the{" "}
@@ -257,14 +258,18 @@ const handleSubmit = async (e: React.FormEvent) => {
           </Button>
 
           {/* Sign in link */}
-          <div className="text-center mt-6">
-            <p className="text-white/70 text-sm">
-              Already have an account?{" "}
-              <a href="#" className="text-white hover:text-white/80 font-medium transition-colors">
-                Sign in
-              </a>
-            </p>
-          </div>
+          <div className="text-center mt-8">
+  <p className="text-sm text-white/60">
+    Already have an account?{" "}
+    <NavLink
+      to="/login"
+      className="text-white font-medium hover:text-white/90 hover:underline underline-offset-4 transition-colors"
+    >
+      Sign in
+    </NavLink>
+  </p>
+</div>
+
         </div>
       </div>
     </div>
