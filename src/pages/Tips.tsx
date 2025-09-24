@@ -192,7 +192,7 @@ const tips = [
     }
   };
 
-  const handleOpenModal = (tip: any) => {
+  const handleOpenModal = (tip) => {
     setSelectedTip(tip);
     setIsModalOpen(true);
   };

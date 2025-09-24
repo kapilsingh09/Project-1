@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,7 +16,7 @@ const ReportWaste = () => {
   const [location, setLocation] = useState('');
   const [wasteType, setWasteType] = useState('');
   const [description, setDescription] = useState('');
-//error state popup
+  //error state popup
   const [showError, setShowError] = useState(false);
   const [errorList, setErrorList] = useState<string[]>([]);
   //report state model pop
@@ -36,6 +36,30 @@ const ReportWaste = () => {
     description?: string;
     photo?: string;
   } | null>(null);
+
+  // New: Track if device is mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile on mount and on resize
+  useEffect(() => {
+    const checkMobile = () => {
+      // Tailwind's lg is 1024px, so < 1024 is mobile/tablet
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // New: Only auto-show preview on mobile when on last step
+  useEffect(() => {
+    if (isMobile && currentStep === totalSteps) {
+      setShowPreview(true);
+    } else if (isMobile && currentStep !== totalSteps) {
+      setShowPreview(false);
+    }
+    // On desktop, always show preview panel (handled in render)
+  }, [isMobile, currentStep]);
 
   const totalSteps = 4;
 
@@ -85,7 +109,7 @@ const ReportWaste = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setPhotoFile(file);
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -135,7 +159,7 @@ const ReportWaste = () => {
           description,
           photo: photoPreview
         };
-        
+
         setSubmittedData(dataForPopup);
         setShowSuccessModal(true);
         // console.log(result);
@@ -164,7 +188,7 @@ const ReportWaste = () => {
   };
 
   const togglePreview = () => {
-    setShowPreview(!showPreview);
+    setShowPreview((prev) => !prev);
   };
 
   return (
@@ -176,9 +200,6 @@ const ReportWaste = () => {
             <Trash2 className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Report Waste</h1>
-          {/* <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Help keep our environment clean by reporting waste in your area. Your report helps us take quick action.
-          </p> */}
         </div>
 
         {/* Step Indicator */}
@@ -188,7 +209,7 @@ const ReportWaste = () => {
               const StepIcon = step.icon;
               const isActive = currentStep === step.number;
               const isCompleted = currentStep > step.number;
-              
+
               return (
                 <div key={step.number} className="flex flex-col items-center relative">
                   {index < steps.length - 1 && (
@@ -196,7 +217,7 @@ const ReportWaste = () => {
                       isCompleted ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
                     }`} style={{ width: 'calc(100vw / 4 - 3rem)' }} />
                   )}
-                  
+
                   <div className={`
                     relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300
                     ${isActive ? 'border-green-500 bg-green-500 text-white shadow-lg' :
@@ -209,7 +230,7 @@ const ReportWaste = () => {
                       <StepIcon className="w-6 h-6" />
                     )}
                   </div>
-                  
+
                   <div className="mt-3 text-center">
                     <p className={`text-sm font-semibold ${
                       isActive ? 'text-green-600 dark:text-green-400' : isCompleted ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'
@@ -238,7 +259,6 @@ const ReportWaste = () => {
                         <User className="w-6 h-6 text-white dark:text-white" />
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Personal Information</h3>
-                      {/* <h3 className="text-2xl font-bold text-gray-900">Personal Information</h3> */}
                       <p className="text-zinc-900 dark:text-white">We need your contact details to follow up on the report</p>
                     </div>
 
@@ -436,8 +456,8 @@ const ReportWaste = () => {
                 {/* Navigation Buttons */}
                 <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-7 pt-4 border-t border-gray-100 gap-2 sm:gap-0">
                   {currentStep > 1 ? (
-                    <Button 
-                      type="button" 
+                    <Button
+                      type="button"
                       onClick={prevStep}
                       variant="outline"
                       className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
@@ -462,8 +482,8 @@ const ReportWaste = () => {
                     )}
 
                     {currentStep < totalSteps && (
-                      <Button 
-                        type="button" 
+                      <Button
+                        type="button"
                         onClick={nextStep}
                         className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700"
                       >
@@ -472,7 +492,7 @@ const ReportWaste = () => {
                     )}
 
                     {currentStep === totalSteps && (
-                      <Button 
+                      <Button
                         type="submit"
                         className="w-full sm:w-auto px-4 sm:px-8 py-2 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700"
                       >
@@ -486,82 +506,149 @@ const ReportWaste = () => {
           </div>
 
           {/* Preview Panel */}
-          {currentStep > 2 && showPreview && <div className="lg:col-span-1 sm:hidden ">
-            <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700 transition-all duration-300 ${
-              showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
-            }`}>
-              <div className="text-center mb-6">
-                <h4 className="text-lg font-bold text-gray-900 dark:text-white">Report Preview</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">How your report will look</p>
-              </div>
-
-              <div className="space-y-4">
-                {/* Reporter Info */}
-                <div className="p-4 bg-gray-100 dark:bg-gray-600 rounded-lg">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Reporter</h5>
-                  <p className="text-sm text-gray-800 dark:text-gray-100">{name || 'Name not provided'}</p>
-                  <p className="text-sm text-gray-700 dark:text-gray-200">{email || 'Email not provided'}</p>
-                  {phone && <p className="text-sm text-gray-700 dark:text-gray-200">{phone}</p>}
+          {/* Desktop (lg and up): Always show preview panel */}
+          {!isMobile && showPreview && (
+            <div className="hidden lg:block lg:col-span-1">
+              <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700 transition-all duration-300 ${
+                showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
+              }`}>
+                <div className="text-center mb-6">
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white">Report Preview</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">How your report will look</p>
                 </div>
-
-                {/* Location */}
-                <div className="p-4 bg-blue-100 dark:bg-blue-800/50 rounded-lg">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-300" />
-                    Location
-                  </h5>
-                  <p className="text-sm text-gray-800 dark:text-gray-100">{location || 'Location not specified'}</p>
-                </div>
-
-                {/* Waste Type */}
-                <div className="p-4 bg-orange-100 dark:bg-orange-800/50 rounded-lg">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                    <Trash2 className="w-4 h-4 mr-2 text-orange-700 dark:text-orange-300" />
-                    Waste Type
-                  </h5>
-                  <p className="text-sm text-gray-800 dark:text-gray-100">{wasteType || 'Type not selected'}</p>
-                </div>
-
-                {/* Description */}
-                {description && (
-                  <div className="p-4 bg-green-100 dark:bg-green-800/50 rounded-lg">
-                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h5>
-                    <p className="text-sm text-gray-800 dark:text-gray-100">{description}</p>
+                <div className="space-y-4">
+                  {/* Reporter Info */}
+                  <div className="p-4 bg-gray-100 dark:bg-gray-600 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Reporter</h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{name || 'Name not provided'}</p>
+                    <p className="text-sm text-gray-700 dark:text-gray-200">{email || 'Email not provided'}</p>
+                    {phone && <p className="text-sm text-gray-700 dark:text-gray-200">{phone}</p>}
                   </div>
-                )}
-
-                {/* Photo */}
-                {photoPreview && (
-                  <div className="p-4 bg-purple-100 dark:bg-purple-800/50 rounded-lg">
-                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Photo</h5>
-                    <img
-                      src={photoPreview}
-                      alt="Waste preview"
-                      className="w-full h-32 object-cover rounded-md"
-                    />
+                  {/* Location */}
+                  <div className="p-4 bg-blue-100 dark:bg-blue-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <MapPin className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-300" />
+                      Location
+                    </h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{location || 'Location not specified'}</p>
                   </div>
-                )}
-
-                {/* Status */}
-                <div className="p-4 bg-yellow-100 dark:bg-yellow-800/50 rounded-lg">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Status</h5>
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700/70 text-yellow-900 dark:text-yellow-100">
-                    Draft
-                  </span>
+                  {/* Waste Type */}
+                  <div className="p-4 bg-orange-100 dark:bg-orange-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <Trash2 className="w-4 h-4 mr-2 text-orange-700 dark:text-orange-300" />
+                      Waste Type
+                    </h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{wasteType || 'Type not selected'}</p>
+                  </div>
+                  {/* Description */}
+                  {description && (
+                    <div className="p-4 bg-green-100 dark:bg-green-800/50 rounded-lg">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h5>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">{description}</p>
+                    </div>
+                  )}
+                  {/* Photo */}
+                  {photoPreview && (
+                    <div className="p-4 bg-purple-100 dark:bg-purple-800/50 rounded-lg">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Photo</h5>
+                      <img
+                        src={photoPreview}
+                        alt="Waste preview"
+                        className="w-full h-32 object-cover rounded-md"
+                      />
+                    </div>
+                  )}
+                  {/* Status */}
+                  <div className="p-4 bg-yellow-100 dark:bg-yellow-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Status</h5>
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700/70 text-yellow-900 dark:text-yellow-100">
+                      Draft
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>}
+          )}
+
+          {/* Mobile (below lg): Show preview as overlay only when showPreview is true */}
+          {isMobile && showPreview && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 lg:hidden">
+              <div className="relative w-full max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700">
+                <button
+                  className="absolute top-3 right-3 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  onClick={() => setShowPreview(false)}
+                  aria-label="Close Preview"
+                  type="button"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="text-center mb-6">
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white">Report Preview</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">How your report will look</p>
+                </div>
+                <div className="space-y-4">
+                  {/* Reporter Info */}
+                  <div className="p-4 bg-gray-100 dark:bg-gray-600 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Reporter</h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{name || 'Name not provided'}</p>
+                    <p className="text-sm text-gray-700 dark:text-gray-200">{email || 'Email not provided'}</p>
+                    {phone && <p className="text-sm text-gray-700 dark:text-gray-200">{phone}</p>}
+                  </div>
+                  {/* Location */}
+                  <div className="p-4 bg-blue-100 dark:bg-blue-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <MapPin className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-300" />
+                      Location
+                    </h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{location || 'Location not specified'}</p>
+                  </div>
+                  {/* Waste Type */}
+                  <div className="p-4 bg-orange-100 dark:bg-orange-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                      <Trash2 className="w-4 h-4 mr-2 text-orange-700 dark:text-orange-300" />
+                      Waste Type
+                    </h5>
+                    <p className="text-sm text-gray-800 dark:text-gray-100">{wasteType || 'Type not selected'}</p>
+                  </div>
+                  {/* Description */}
+                  {description && (
+                    <div className="p-4 bg-green-100 dark:bg-green-800/50 rounded-lg">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h5>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">{description}</p>
+                    </div>
+                  )}
+                  {/* Photo */}
+                  {photoPreview && (
+                    <div className="p-4 bg-purple-100 dark:bg-purple-800/50 rounded-lg">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Photo</h5>
+                      <img
+                        src={photoPreview}
+                        alt="Waste preview"
+                        className="w-full h-32 object-cover rounded-md"
+                      />
+                    </div>
+                  )}
+                  {/* Status */}
+                  <div className="p-4 bg-yellow-100 dark:bg-yellow-800/50 rounded-lg">
+                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Status</h5>
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700/70 text-yellow-900 dark:text-yellow-100">
+                      Draft
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Success Modal */}
-      <ReportPopUp 
+      <ReportPopUp
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
         submittedData={submittedData}
       />
-         <ErrorPopup
+      <ErrorPopup
         open={showError}
         onClose={() => setShowError(false)}
         errors={errorList}
