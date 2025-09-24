@@ -168,7 +168,7 @@ const ReportWaste = () => {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen  py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -225,7 +225,7 @@ const ReportWaste = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           {/* Form Section */}
           <div className="lg:col-span-2">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">

@@ -52,9 +52,9 @@ const About = () => {
         </div>
 
         {/* Team Section */}
-        <div className="mb-10 sm:mb-16">
+        {/* <div className="mb-10 sm:mb-16">
           <Team />
-        </div>
+        </div> */}
 
         {/* Values Section */}
         <div className="mb-10 sm:mb-16">
