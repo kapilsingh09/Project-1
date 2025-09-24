@@ -200,53 +200,16 @@ const ReportWaste = () => {
             <Trash2 className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Report Waste</h1>
+        <p className="text-base text-muted-foreground max-w-xl mx-auto mb-4">
+          Report waste in your area to help keep our community clean. Your quick action makes a difference!
+        </p>
         </div>
 
         {/* Step Indicator */}
-        <div className="mb-12">
-          <div className="flex justify-between items-center max-w-3xl mx-auto">
-            {steps.map((step, index) => {
-              const StepIcon = step.icon;
-              const isActive = currentStep === step.number;
-              const isCompleted = currentStep > step.number;
-
-              return (
-                <div key={step.number} className="flex flex-col items-center relative">
-                  {index < steps.length - 1 && (
-                    <div className={`absolute top-6 left-12 w-full h-0.5 ${
-                      isCompleted ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
-                    }`} style={{ width: 'calc(100vw / 4 - 3rem)' }} />
-                  )}
-
-                  <div className={`
-                    relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300
-                    ${isActive ? 'border-green-500 bg-green-500 text-white shadow-lg' :
-                      isCompleted ? 'border-green-500 bg-green-500 text-white' :
-                      'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-400 dark:text-gray-500'}
-                  `}>
-                    {isCompleted ? (
-                      <CheckCircle className="w-6 h-6" />
-                    ) : (
-                      <StepIcon className="w-6 h-6" />
-                    )}
-                  </div>
-
-                  <div className="mt-3 text-center">
-                    <p className={`text-sm font-semibold ${
-                      isActive ? 'text-green-600 dark:text-green-400' : isCompleted ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'
-                    }`}>
-                      {step.title}
-                    </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{step.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+     
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid  grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           {/* Form Section */}
           <div className="lg:col-span-2">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
