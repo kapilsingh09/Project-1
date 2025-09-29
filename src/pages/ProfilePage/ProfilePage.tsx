@@ -26,18 +26,19 @@ export default function ProfilePage() {
     phone: "+91 9876543210",
     address: "East Blue, Goa Kingdom, Windmill Village",
     points: 0,
-    level: 3,
+    level: 0,
     rewards: [
       { id: 1, title: "Welcome Bonus", status: "Claimed" },
       { id: 2, title: "Weekly Login", status: "Available" },
       { id: 3, title: "Referral Reward", status: "Locked" },
     ],
     reports: {
-      lastLogin: "2025-09-20 10:45 AM",
-      totalLogins: 54,
-      activeDays: 32,
-      streak: 5,
-      tasksCompleted: 18,
+      // lastLogin: "2025-09-20 10:45 AM",
+      lastLogin:"No Records found",
+      totalLogins: 0,
+      activeDays: 0,
+      streak: 0,
+      tasksCompleted: 0,
     },
     reportsHistory: [
       { id: 1, title: "Spam Report #101", date: "2025-09-15", status: "Reviewed", reward: "+50 pts" },
@@ -73,7 +74,7 @@ export default function ProfilePage() {
                 variant="outline"
                 className="text-white border-white/30 hover:bg-red-600/80 hover:text-white transition-all duration-200"
               >
-                <User />
+                <User className="text-white font-semibold" />
                 Logout
               </Button>
             </div>
@@ -97,13 +98,13 @@ export default function ProfilePage() {
               <span className="text-white font-semibold">{user.points}</span>
               {"  "}
               <span className="ml-4 text-xs text-white/50">
-                (1 report = 20 points)
+                (1 report = 8 points)
               </span>
             </p>
             <p className="text-white/70 text-sm mb-2">
               Money Earned:{" "}
               <span className="text-white font-semibold">
-                ₹{((user.points / 20) * 0).toFixed(2)}
+                ₹{((user.points / 8) * 8).toFixed(2)}
               </span>
               <span className="ml-4 text-xs text-white/50">
                 {/* ({user.points} points × ₹1 per point = ₹{user.points}) */}
@@ -120,11 +121,11 @@ export default function ProfilePage() {
             <div className="flex justify-end mt-4">
               <Button
                 className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-2 transition-all duration-200"
-                disabled={user.points < 1200}
+                disabled={user.points < 200}
                 onClick={() => {
                   // You can implement your withdraw logic here
                   alert(
-                    user.points >= 1200
+                    user.points >= 200
                       ? "Withdrawal request submitted!"
                       : "You need at least 200 points to withdraw."
                   );
@@ -133,9 +134,9 @@ export default function ProfilePage() {
                 Withdraw ₹{Math.floor(user.points / 200) * 200}
               </Button>
             </div>
-            {user.points < 1200 && (
+            {user.points < 200 && (
               <p className="text-xs text-red-400 mt-2">
-                Minimum 1200 points required to withdraw.
+                Minimum 200 points required to withdraw.
               </p>
             )}
           </CardContent>

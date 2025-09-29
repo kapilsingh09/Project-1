@@ -26,10 +26,7 @@ const ReportHistory = () => {
       tasksCompleted: 18,
     },
     reportsHistory: [
-      { id: 1, title: "Glass Waste Report #101", date: "2025-09-15", status: "Reviewed", reward: "+10 pts" },
-      { id: 2, title: "Plastic Waste Report #102", date: "2025-09-17", status: "Approved", reward: "+20 pts" },
-      { id: 3, title: "Organic Waste Report #103", date: "2025-09-18", status: "Rejected", reward: "0 pts" },
-      { id: 4, title: "E-waste Report #104", date: "2025-09-21", status: "Pending", reward: "..." },
+    
     ],
   });
 
