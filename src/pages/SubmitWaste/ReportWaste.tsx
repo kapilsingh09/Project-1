@@ -4,9 +4,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Camera, MapPin, Trash2, User, Mail, Phone, FileText, Upload, X, CheckCircle, Eye } from 'lucide-react';
 import ReportPopUp from './SubmitReportPop';
 import ErrorPopup from './ErrorPopup';
+import { NavLink } from 'react-router-dom';
+
+
 
 const ReportWaste = () => {
   // Form fields managed individually for clarity
@@ -37,6 +41,33 @@ const ReportWaste = () => {
     photo?: string;
   } | null>(null);
 
+  const [user] = useState({
+    name: "Luffy",
+    email: "Monkey.D@me.com",
+    avatar: "",
+    phone: "+91 9876543210",
+    address: "East Blue, Goa Kingdom, Windmill Village",
+    points: 1200,
+    level: 3,
+    rewards: [
+      { id: 1, title: "Welcome Bonus", status: "Claimed" },
+      { id: 2, title: "Weekly Login", status: "Available" },
+      { id: 3, title: "Referral Reward", status: "Locked" },
+    ],
+    reports: {
+      lastLogin: "2025-09-20 10:45 AM",
+      totalLogins: 54,
+      activeDays: 32,
+      streak: 5,
+      tasksCompleted: 18,
+    },
+    reportsHistory: [
+      { id: 1, title: "Spam Report #101", date: "2025-09-15", status: "Reviewed", reward: "+50 pts" },
+      { id: 2, title: "Bug Report #102", date: "2025-09-17", status: "Approved", reward: "+100 pts" },
+      { id: 3, title: "Content Report #103", date: "2025-09-18", status: "Rejected", reward: "0 pts" },
+      { id: 4, title: "Spam Report #104", date: "2025-09-21", status: "Pending", reward: "..." },
+    ],
+  });
   // New: Track if device is mobile
   const [isMobile, setIsMobile] = useState(false);
 
@@ -209,19 +240,19 @@ const ReportWaste = () => {
      
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3  gap-8 w-full">
           {/* Form Section */}
-          <div className="lg:col-span-2">
-            <div className="bg-zinc-900 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-8">
+          <div className="lg:col-span-2  ">
+            <div className="bg-zinc-900 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-10">
               <form onSubmit={handleSubmit}>
                 {/* Step 1: Personal Info */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
                     <div className="text-center mb-8">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-green-900 rounded-full mb-4">
-                        <User className="w-6 h-6 text-white dark:text-white" />
+                      <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 dark:bg-green-900 rounded-full mb-4">
+                        <User className="w-9 h-9 text-white dark:text-white" />
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Personal Information</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-1 dark:text-white">Personal Information</h3>
                       <p className="text-zinc-900 dark:text-white">We need your contact details to follow up on the report</p>
                     </div>
 
@@ -472,58 +503,63 @@ const ReportWaste = () => {
           {/* Preview Panel */}
           {/* Desktop (lg and up): Always show preview panel */}
           {!isMobile && showPreview && (
-            <div className="hidden lg:block lg:col-span-1">
-              <div className={`bg-white/5 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-6 transition-all duration-300 ${
-                showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
-              }`}>
-                <div className="text-center mb-6">
+            <div className="hidden lg:block lg:col-span-1 h-full">
+              <div
+                className={`flex flex-col h-full bg-white/5 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-6 transition-all duration-300 ${
+                  showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
+                }`}
+                style={{ minHeight: '100%', height: '100%' }}
+              >
+                <div className="text-center mb-3">
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white">Report Preview</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">How your report will look</p>
                 </div>
-                <div className="space-y-4">
-                  {/* Reporter Info */}
-                  <div className="p-4 bg-gray-100 dark:bg-gray-600 rounded-lg">
-                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Reporter</h5>
-                    <p className="text-sm text-gray-800 dark:text-gray-100">{name || 'Name not provided'}</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-200">{email || 'Email not provided'}</p>
-                    {phone && <p className="text-sm text-gray-700 dark:text-gray-200">{phone}</p>}
-                  </div>
-                  {/* Location */}
-                  <div className="p-4 bg-blue-100 dark:bg-blue-800/50 rounded-lg">
-                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                      <MapPin className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-300" />
-                      Location
-                    </h5>
-                    <p className="text-sm text-gray-800 dark:text-gray-100">{location || 'Location not specified'}</p>
-                  </div>
-                  {/* Waste Type */}
-                  <div className="p-4 bg-orange-100 dark:bg-orange-800/50 rounded-lg">
-                    <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                      <Trash2 className="w-4 h-4 mr-2 text-orange-700 dark:text-orange-300" />
-                      Waste Type
-                    </h5>
-                    <p className="text-sm text-gray-800 dark:text-gray-100">{wasteType || 'Type not selected'}</p>
-                  </div>
-                  {/* Description */}
-                  {description && (
-                    <div className="p-4 bg-green-100 dark:bg-green-800/50 rounded-lg">
-                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h5>
-                      <p className="text-sm text-gray-800 dark:text-gray-100">{description}</p>
+                <div className="flex-1 flex flex-col justify-between space-y-4">
+                  <div>
+                    {/* Reporter Info */}
+                    <div className="p-4 bg-gray-100 dark:bg-gray-600 rounded-lg mb-4">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Reporter</h5>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">{name || 'Name not provided'}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-200">{email || 'Email not provided'}</p>
+                      {phone && <p className="text-sm text-gray-700 dark:text-gray-200">{phone}</p>}
                     </div>
-                  )}
-                  {/* Photo */}
-                  {photoPreview && (
-                    <div className="p-4 bg-purple-100 dark:bg-purple-800/50 rounded-lg">
-                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Photo</h5>
-                      <img
-                        src={photoPreview}
-                        alt="Waste preview"
-                        className="w-full h-32 object-cover rounded-md"
-                      />
+                    {/* Location */}
+                    <div className="p-4 bg-blue-100 dark:bg-blue-800/50 rounded-lg mb-4">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <MapPin className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-300" />
+                        Location
+                      </h5>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">{location || 'Location not specified'}</p>
                     </div>
-                  )}
+                    {/* Waste Type */}
+                    <div className="p-4 bg-orange-100 dark:bg-orange-800/50 rounded-lg mb-4">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                        <Trash2 className="w-4 h-4 mr-2 text-orange-700 dark:text-orange-300" />
+                        Waste Type
+                      </h5>
+                      <p className="text-sm text-gray-800 dark:text-gray-100">{wasteType || 'Type not selected'}</p>
+                    </div>
+                    {/* Description */}
+                    {description && (
+                      <div className="p-4 bg-green-100 dark:bg-green-800/50 rounded-lg mb-4">
+                        <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h5>
+                        <p className="text-sm text-gray-800 dark:text-gray-100">{description}</p>
+                      </div>
+                    )}
+                    {/* Photo */}
+                    {photoPreview && (
+                      <div className="p-4 bg-purple-100 dark:bg-purple-800/50 rounded-lg mb-4">
+                        <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Photo</h5>
+                        <img
+                          src={photoPreview}
+                          alt="Waste preview"
+                          className="w-full h-32 object-cover rounded-md"
+                        />
+                      </div>
+                    )}
+                  </div>
                   {/* Status */}
-                  <div className="p-4 bg-yellow-100 dark:bg-yellow-800/50 rounded-lg">
+                  <div className="p-4 bg-yellow-100 dark:bg-yellow-800/50 rounded-lg mt-4">
                     <h5 className="font-semibold text-gray-900 dark:text-white mb-2">Status</h5>
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700/70 text-yellow-900 dark:text-yellow-100">
                       Draft
@@ -606,6 +642,57 @@ const ReportWaste = () => {
         </div>
       </div>
 
+      <div className="w-full flex flex-col items-center justify-center mt-6">
+        <Card className="bg-white/5 w-full max-w-6xl border-white/20 backdrop-blur-lg rounded-2xl shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-lg">Your Recent Reports</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm">
+            {user.reportsHistory.length === 0 ? (
+              <div className="text-white/70 text-center py-6">No reports yet. Start reporting to see your history here!</div>
+            ) : (
+              user.reportsHistory.slice(0, 3).map((report) => (
+                <div
+                  key={report.id}
+                  className="flex items-center cursor-pointer justify-between p-3 rounded-xl bg-white/10 border border-white/20 transition-all duration-200 hover:bg-white/20 hover:scale-[1.02]"
+                >
+                  <div className="flex flex-col">
+                    <span className="font-medium text-white flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-blue-400" /> {report.title}
+                    </span>
+                    <span className="text-white/50 text-xs">{report.date}</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full mb-1 ${
+                        report.status === "Approved"
+                          ? "bg-green-500/20 text-green-400 border border-green-500/40"
+                          : report.status === "Reviewed"
+                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40"
+                          : report.status === "Pending"
+                          ? "bg-blue-500/20 text-blue-400 border border-blue-500/40"
+                          : "bg-red-500/20 text-red-400 border border-red-500/40"
+                      }`}
+                    >
+                      {report.status}
+                    </span>
+                    <span className="text-xs text-white/70">{report.reward}</span>
+                  </div>
+                </div>
+              ))
+            )}
+            <div className="flex justify-center mt-4">
+              <NavLink
+                to="/profile"
+                className="inline-block w-full sm:w-auto px-8 py-3 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all duration-200 text-base"
+                style={{ maxWidth: 320 }}
+              >
+                View All Reports &rarr;
+              </NavLink>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       {/* Success Modal */}
       <ReportPopUp
         isOpen={showSuccessModal}
