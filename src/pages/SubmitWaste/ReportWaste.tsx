@@ -62,10 +62,10 @@ const ReportWaste = () => {
       tasksCompleted: 18,
     },
     reportsHistory: [
-      { id: 1, title: "Spam Report #101", date: "2025-09-15", status: "Reviewed", reward: "+50 pts" },
-      { id: 2, title: "Bug Report #102", date: "2025-09-17", status: "Approved", reward: "+100 pts" },
-      { id: 3, title: "Content Report #103", date: "2025-09-18", status: "Rejected", reward: "0 pts" },
-      { id: 4, title: "Spam Report #104", date: "2025-09-21", status: "Pending", reward: "..." },
+      { id: 1, title: "Glass Waste Report #101", date: "2025-09-15", status: "Reviewed", reward: "+10 pts" },
+      { id: 2, title: "Plastic Waste Report #102", date: "2025-09-17", status: "Approved", reward: "+20 pts" },
+      { id: 3, title: "Organic Waste Report #103", date: "2025-09-18", status: "Rejected", reward: "0 pts" },
+      { id: 4, title: "E-waste Report #104", date: "2025-09-21", status: "Pending", reward: "..." },
     ],
   });
   // New: Track if device is mobile
@@ -642,11 +642,14 @@ const ReportWaste = () => {
         </div>
       </div>
 
+{/* component of profile page */}
       <div className="w-full flex flex-col items-center justify-center mt-6">
         <Card className="bg-white/5 w-full max-w-6xl border-white/20 backdrop-blur-lg rounded-2xl shadow-lg">
           <CardHeader>
             <CardTitle className="text-lg">Your Recent Reports</CardTitle>
           </CardHeader>
+
+          {/* //here i have to use components */}
           <CardContent className="space-y-4 text-sm">
             {user.reportsHistory.length === 0 ? (
               <div className="text-white/70 text-center py-6">No reports yet. Start reporting to see your history here!</div>

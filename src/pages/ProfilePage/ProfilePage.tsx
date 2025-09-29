@@ -15,6 +15,7 @@ import {
   User,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import ReportHistory from "./ReportHistory";
 
 export default function ProfilePage() {
   // Dummy user data
@@ -24,7 +25,7 @@ export default function ProfilePage() {
     avatar: "",
     phone: "+91 9876543210",
     address: "East Blue, Goa Kingdom, Windmill Village",
-    points: 1200,
+    points: 0,
     level: 3,
     rewards: [
       { id: 1, title: "Welcome Bonus", status: "Claimed" },
@@ -82,42 +83,7 @@ export default function ProfilePage() {
 
       {/* Reports History Section */}
       <div className="w-full max-w-3xl mt-6">
-        <Card className="bg-white/5 border-white/20 backdrop-blur-lg  rounded-2xl shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-lg">Your Reports History</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            {user.reportsHistory.map((report) => (
-              <div
-                key={report.id}
-                className="flex items-center cursor-pointer justify-between p-3 rounded-xl bg-white/10 border border-white/20 transition-all duration-200 hover:bg-white/20 hover:scale-[1.02]"
-              >
-                <div className="flex flex-col">
-                  <span className="font-medium text-white flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-blue-400" /> {report.title}
-                  </span>
-                  <span className="text-white/50 text-xs">{report.date}</span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span
-                    className={`text-xs px-3 py-1 rounded-full mb-1 ${
-                      report.status === "Approved"
-                        ? "bg-green-500/20 text-green-400 border border-green-500/40"
-                        : report.status === "Reviewed"
-                        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40"
-                        : report.status === "Pending"
-                        ? "bg-blue-500/20 text-blue-400 border border-blue-500/40"
-                        : "bg-red-500/20 text-red-400 border border-red-500/40"
-                    }`}
-                  >
-                    {report.status}
-                  </span>
-                  <span className="text-xs text-white/70">{report.reward}</span>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+    <ReportHistory />
       </div>
       {/* Points & Progress */}
       <div className="w-full max-w-3xl mt-6">
@@ -137,10 +103,10 @@ export default function ProfilePage() {
             <p className="text-white/70 text-sm mb-2">
               Money Earned:{" "}
               <span className="text-white font-semibold">
-                ₹{((user.points / 20) * 20).toFixed(0)}
+                ₹{((user.points / 20) * 0).toFixed(2)}
               </span>
               <span className="ml-4 text-xs text-white/50">
-                ({user.points} points × ₹1 per point = ₹{user.points})
+                {/* ({user.points} points × ₹1 per point = ₹{user.points}) */}
               </span>
             </p>
             <Progress
@@ -150,6 +116,28 @@ export default function ProfilePage() {
             <p className="text-xs text-white/50 mt-2">
               {user.points % 200} / 200 points to next ₹200 payout
             </p>
+
+            <div className="flex justify-end mt-4">
+              <Button
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg px-6 py-2 transition-all duration-200"
+                disabled={user.points < 1200}
+                onClick={() => {
+                  // You can implement your withdraw logic here
+                  alert(
+                    user.points >= 1200
+                      ? "Withdrawal request submitted!"
+                      : "You need at least 200 points to withdraw."
+                  );
+                }}
+              >
+                Withdraw ₹{Math.floor(user.points / 200) * 200}
+              </Button>
+            </div>
+            {user.points < 1200 && (
+              <p className="text-xs text-red-400 mt-2">
+                Minimum 1200 points required to withdraw.
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
