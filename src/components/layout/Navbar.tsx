@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Menu, X, Leaf, Recycle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import path from 'path';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,7 @@ const Navbar = () => {
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'Tips', path: '/tips' },
     { name: 'About', path: '/about' },
+    {name:'Reward',path:'/profile'}
   ];
 
   const isActive = (path: string) => {

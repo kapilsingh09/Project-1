@@ -23,7 +23,7 @@ export default function ProfilePage() {
     name: "Luffy",
     email: "Monkey.D@me.com",
     avatar: "",
-    phone: "+91 9876543210",
+    phone: "+91 98765XXX10",
     address: "East Blue, Goa Kingdom, Windmill Village",
     points: 0,
     level: 0,
