@@ -55,14 +55,14 @@ const Home = () => {
         <div
           className="absolute top-0 left-0 w-full"
           style={{
-            height: '40%',
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 100%)',
+            height: '100%',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.7) 80%)',
             zIndex: 11,
             pointerEvents: 'none'
           }}
         />
         {/* Main Overlay */}
-        <div className="absolute inset-0 bg-black/20 z-20" />
+        {/* <div className="absolute inset-0 bg-black/20 z-20" /> */}
         {/* Content Overlay */}
         <div className="container mx-auto px-4 relative z-20 text-center mb-10">
           <motion.div
