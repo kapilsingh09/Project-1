@@ -14,6 +14,7 @@ import NotFound from "./Utils/NotFound";
 import LoginPage from "./pages/Auth/Login";
 import RegistrationPage from "./pages/Auth/RegistrationPage";
 import AutoScrollTop from "./Utils/AutoScrollTop";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +34,7 @@ const App = () => (
             
             <Route path="/tips" element={<Tips />} />
             <Route path="/about" element={<About />} />
-
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

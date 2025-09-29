@@ -209,10 +209,10 @@ const ReportWaste = () => {
      
 
         {/* Main Content */}
-        <div className="grid  grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           {/* Form Section */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
+            <div className="bg-zinc-900 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-8">
               <form onSubmit={handleSubmit}>
                 {/* Step 1: Personal Info */}
                 {currentStep === 1 && (
@@ -234,7 +234,7 @@ const ReportWaste = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Enter your full name"
-                            className="pl-10 py-3 text-base"
+                            className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200"
                           />
                           <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                         </div>
@@ -250,7 +250,7 @@ const ReportWaste = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            className="pl-10 py-3 text-base"
+                            className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200"
                           />
                           <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                         </div>
@@ -266,7 +266,7 @@ const ReportWaste = () => {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="Enter your phone number"
-                          className="pl-10 py-3 text-base"
+                          className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200"
                         />
                         <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                       </div>
@@ -293,7 +293,7 @@ const ReportWaste = () => {
                           value={location}
                           onChange={(e) => setLocation(e.target.value)}
                           placeholder="e.g., Main Street near Central Park, Building address, etc."
-                          className="pl-10 py-3 text-base"
+                          className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200"
                         />
                         <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                       </div>
@@ -347,7 +347,8 @@ const ReportWaste = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Provide additional details about the waste situation, quantity, condition, etc."
-                        className="mt-2 py-3 text-base min-h-[120px]"
+                        className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200 mt-2 min-h-[120px]"
+                        style={{ minHeight: '120px' }}
                       />
                     </div>
                   </div>
@@ -377,7 +378,7 @@ const ReportWaste = () => {
                               id="photo"
                               accept="image/*"
                               onChange={handlePhotoChange}
-                              className="mt-4"
+                              className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/15 focus:border-white/40 rounded-xl transition-all duration-200 mt-4"
                             />
                           </div>
                         ) : (
@@ -472,7 +473,7 @@ const ReportWaste = () => {
           {/* Desktop (lg and up): Always show preview panel */}
           {!isMobile && showPreview && (
             <div className="hidden lg:block lg:col-span-1">
-              <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700 transition-all duration-300 ${
+              <div className={`bg-white/5 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-6 transition-all duration-300 ${
                 showPreview || currentStep === totalSteps ? 'opacity-100' : 'opacity-50'
               }`}>
                 <div className="text-center mb-6">
@@ -536,7 +537,7 @@ const ReportWaste = () => {
           {/* Mobile (below lg): Show preview as overlay only when showPreview is true */}
           {isMobile && showPreview && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 lg:hidden">
-              <div className="relative w-full max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl dark:shadow-2xl p-6 border border-gray-100 dark:border-gray-700">
+              <div className="relative w-full max-w-md mx-auto bg-white/5 border-white/20 backdrop-blur-lg rounded-2xl shadow-xl p-6">
                 <button
                   className="absolute top-3 right-3 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   onClick={() => setShowPreview(false)}

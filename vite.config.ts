@@ -10,15 +10,15 @@ export default defineConfig(({ mode }) => ({
     //   chunkSizeWarningLimit: 1600, // size in KB, e.g., 1.6MB
     // },
     port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        secure: false
-      }
-    }
+    // // proxy: {
+    // //   '/api': {
+    // //     target: 'http://localhost:3000',
+    // //     changeOrigin: true,
+    // //     secure: false
+    // //   }
+    // }
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  // plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { NavLink } from "react-router-dom";
+import { NavLink, redirect } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, Chrome, Eye, EyeOff, Divide,CirclePlus } from "lucide-react";
 import { Close } from "@radix-ui/react-toast";
+import { json } from "stream/consumers";
+import { log } from "console";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,11 +14,40 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error,setError] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // This function is connected to the backend at /api/login
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // TODO: Add login logic here
+
+    try {
+      //  login endpoint
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      // Checking or the data is give or not in form of res 
+      if (!res.ok) {
+        const err = await res.json();
+        setError(err.message || "Login failed");
+        return;
+      }
+
+      //  successful data
+      const data = await res.json();
+      console.log("Login success:", data);
+
+      // Redirect to home page 
+      redirect('/');
+    } catch (error) {
+      console.error("Login error:", error);
+      // setError("Something went wrong. Please try again.");
+    }
   };
 
   const handleGoogleLogin = () => {
