@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Recycle, MapPin, BarChart3, Calendar, Lightbulb, Users, Award, Zap, Sprout, Leaf } from 'lucide-react';
-import heroImage from '@/assets/hero-img3.png';
+import heroImage from '@/assets/new_bg.jpg';
 
 const Home = () => {
   const features = [
@@ -43,16 +43,26 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className=" min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="min-h-screen flex items-center justify-center overflow-hidden ">
         {/* Background Image */}
         <img
           src={heroImage}
           alt="Hero"
-          className="absolute inset-0 w-full h-full  object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ objectPosition: 'center' }}
         />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30 z-10" />
+        {/* Top Overlay */}
+        <div
+          className="absolute top-0 left-0 w-full"
+          style={{
+            height: '40%',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 100%)',
+            zIndex: 11,
+            pointerEvents: 'none'
+          }}
+        />
+        {/* Main Overlay */}
+        <div className="absolute inset-0 bg-black/20 z-20" />
         {/* Content Overlay */}
         <div className="container mx-auto px-4 relative z-20 text-center mb-10">
           <motion.div
